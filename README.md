@@ -1,5 +1,5 @@
 ## About
-Each time you reboot the system or restart WSL, the subsystem changes the ip address. This script will help you resolve the WSL address.
+Each time you reboot the system or restart WSL, the subsystem changes the ip address. This script will help you resolve the WSL address. (Actual for Windows 10 Version 10.0.19041 Build 19041)
 
 ## Install
 ```
