@@ -7,7 +7,7 @@ sudo wget https://raw.githubusercontent.com/walkerus/wsl-ip-resolver/master/wsl-
 sudo chmod +x /usr/bin/wsl-ip-resolver
 ```
 
-## usage
+## Usage
 ```
 //get wsl ip for host
 wsl-ip-resolver --wsl
@@ -21,4 +21,4 @@ wsl-ip-resolver --resolve
 
 After resolving, the subsystem can be accessed by dns as wsl. Example http://wsl
 
-for automatic resolving ```@reboot wsl-ip-resolver --resolve``` add to crontab
+Add to crontab for automatic resolving ```@reboot wsl-ip-resolver --resolve```
