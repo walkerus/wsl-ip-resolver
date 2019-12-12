@@ -58,7 +58,7 @@ do
     --help)
         echo -e ${usage}
         exit 0 ;;
-    --h)
+    -h)
         echo -e ${usage}
         exit 0 ;;
     *)
