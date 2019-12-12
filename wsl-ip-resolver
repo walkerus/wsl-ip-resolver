@@ -1,0 +1,69 @@
+#!/bin/bash
+
+function getWslIp {
+    rawIp=$(ip addr | grep eth0)
+    rawIp=$(echo $rawIp | egrep -o '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}\/')
+    echo ${rawIp::-1}
+}
+
+function getWinIp {
+    keyWord="nameserver "
+    hostIp=$(cat /etc/resolv.conf | grep $keyWord)
+    echo ${hostIp#$keyWord}
+}
+
+function resolveWslIp {
+    hosts=/c/Windows/System32/drivers/etc/hostss
+
+    if [ ! -f "$hosts" ]; then
+        hosts=/mnt/c/Windows/System32/drivers/etc/hosts
+
+        if [ ! -f "$hosts" ]; then
+            echo hosts not found
+            return
+        fi
+    fi
+
+    newHosts=/tmp/hosts
+
+    cp $hosts $newHosts
+    sed -i "/\b\(wsl\)\b/d" $newHosts
+    wslIp=$(getWslIp)
+    echo "${wslIp} wsl" >> $newHosts
+    cp $newHosts $hosts
+    rm $newHosts
+}
+
+usage="
+Usage: wsl-ip-resolver [OPTION]\n
+$(basename "$0") -- script for resolve WSL ip in Windows\n
+
+where:\n
+    \t--wsl           \t\t\tget WSL ip\n
+    \t--win           \t\t\tget Windows ip\n
+    \t--resolve       \t\tadd line with wsl ip in C:\Windows\System32\drivers\etc\hosts"
+
+while [ -n "$1" ]
+do
+    case "$1" in
+    --wsl)
+        getWslIp
+        shift ;;
+    --win)
+        getWinIp
+        shift ;;
+    --resolve)
+        resolveWslIp
+        exit 0 ;;
+    --help)
+        echo -e ${usage}
+        exit 0 ;;
+    --h)
+        echo -e ${usage}
+        exit 0 ;;
+    *)
+        echo "$1 is not an option"
+        exit 1 ;;
+    esac
+shift
+done
