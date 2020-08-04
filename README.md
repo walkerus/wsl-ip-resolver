@@ -6,6 +6,7 @@ Each time you reboot the system or restart WSL, the subsystem changes the ip add
 sudo wget https://raw.githubusercontent.com/walkerus/wsl-ip-resolver/master/wsl-ip-resolver -P /usr/bin
 sudo chmod +x /usr/bin/wsl-ip-resolver
 ```
+Add permissions in windows to file C:\windows\system32\drivers\etc\hosts for wsl programm or all restricted application packages
 
 ## Usage
 ```
